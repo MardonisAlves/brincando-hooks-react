@@ -1,12 +1,12 @@
 import React, { useState } from 'react'
 import axios from 'axios';
-import AlertError from './alert';
+
 function Login() {
     const [email, setEmail] = useState();
     const [senha, setSenha] = useState();
     
     const login = () => {
-        axios.post(`${process.env.REACT_APP_URL}/oauth/token`,
+        axios.post(`${process.env.REACT_APP_HOME}/oauth/token`,
             {
                 "Content-Type": "application/json",
                 "Accept": "application/json",
@@ -36,7 +36,7 @@ function Login() {
     
     return (
         <div>
-            <AlertError />
+            
             email: <input type="text" onChange={(e) => setEmail(e.target.value)}></input><br />
             senha : <input type="text" onChange={(e) => setSenha(e.target.value)}></input><br />
             <button onClick={login}>Login</button>

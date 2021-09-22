@@ -22,7 +22,7 @@ function ListaRelatorio (props){
     // const [id , setId] = useState(props.match.params);
     //  console.log(id.id)
     // const Id = parseInt(id , 10)
-    const { register, formState: { errors }, handleSubmit } = useForm();
+    // const { register, formState: { errors }, handleSubmit } = useForm();
     const [relatorio, setRelatorio] = useState([])
     const [idmodal , setIdmodal] = useState();
     const [name , setName] = useState();
@@ -73,7 +73,7 @@ function ListaRelatorio (props){
 
             )
           }
-        <ComponentFilho quandomudar={receberinformacaofilho}/> 
+        {/* <ComponentFilho quandomudar={receberinformacaofilho}/>  */}
       <Modal
         open={open}
         onClose={handleClose}
