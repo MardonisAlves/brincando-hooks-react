@@ -6,7 +6,7 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import { TextField } from '@mui/material';
-
+import ComponentFilho from '../ComponentFilho';
 const style = {
   position: 'absolute',
   top: '50%',
@@ -26,7 +26,10 @@ function ListaRelatorio (props){
     
     const [relatorio, setRelatorio] = useState([])
     const [idmodal , setIdmodal] = useState();
-  
+    const [name , setName] = useState();
+    const [idade , setIdade] = useState();
+
+    console.log(name , idade)
     const [open, setOpen] =useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
@@ -48,6 +51,11 @@ function ListaRelatorio (props){
     setIdmodal(id)
     handleOpen()
    }
+ 
+   function receberinformacaofilho(nome , idade){
+    setName(nome)
+    setIdade(idade)
+   }
 
     return(
         <div>
@@ -56,13 +64,14 @@ function ListaRelatorio (props){
             item =>
                 <div key={item.id}>
                      <Button
-                    onClick={() => handleChaneId(item.id)}>Modal
+                      onClick={() => handleChaneId(item.id)}>Modal
                      </Button>
-                  
-                </div>
+                     
+          </div>
+
             )
-        }
-       
+          }
+        <ComponentFilho quandomudar={receberinformacaofilho}/> 
       <Modal
         open={open}
         onClose={handleClose}
