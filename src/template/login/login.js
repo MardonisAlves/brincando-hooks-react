@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import axios from 'axios';
-import header from '../../headers/headerToken';
+import AlertError from './alert';
 function Login() {
     const [email, setEmail] = useState();
     const [senha, setSenha] = useState();
@@ -29,8 +29,14 @@ function Login() {
         })
 
     }
+
+    const showalert = () => {
+
+    }
+    
     return (
         <div>
+            <AlertError />
             email: <input type="text" onChange={(e) => setEmail(e.target.value)}></input><br />
             senha : <input type="text" onChange={(e) => setSenha(e.target.value)}></input><br />
             <button onClick={login}>Login</button>
