@@ -5,7 +5,7 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
-import { TextField } from '@mui/material';
+import { useForm } from "react-hook-form";
 
 const style = {
   position: 'absolute',
@@ -23,7 +23,7 @@ function ListaRelatorio (props){
     // const [id , setId] = useState(props.match.params);
     //  console.log(id.id)
     // const Id = parseInt(id , 10)
-    
+    const { register, formState: { errors }, handleSubmit } = useForm();
     const [relatorio, setRelatorio] = useState([])
     const [idmodal , setIdmodal] = useState();
   
@@ -31,23 +31,26 @@ function ListaRelatorio (props){
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
 
-
+    const onSubmit = data => props.updateAction(data);
     useEffect(() => {
-        axios.get(`${process.env.REACT_APP_URL}/getuser`, header()
+        axios.get(`${process.env.REACT_APP_URL}/prefeitura`, header()
         ).then(function (response) {
-            setRelatorio(response.data.user)
+            setRelatorio(response.data.prefeitura)
            console.log(response)
-        }).catch((error) => {
-            console.log(error)
+        }).catch((Error) => {
+            console.log(Error)
         });
 
     }, []);
 
    const handleChaneId = (id) => {
-    // console.log(id)
+    console.log(id)
     setIdmodal(id)
     handleOpen()
    }
+
+   // login()
+
 
     return(
         <div>
@@ -78,6 +81,19 @@ function ListaRelatorio (props){
           </Typography>
         </Box>
       </Modal>
+
+      {/* <form onSubmit={handleSubmit(onSubmit)}>
+      <input {...register("firstName", { required: true })} />
+      {errors.firstName?.type === 'required' && "Nome completo"}
+      
+      <input {...register("lastName", { required: true })} />
+      {errors.lastName && "Last name is required"}
+      
+      <input type="submit" />
+    </form> */}
+
+    
+
     </div>
         
 
