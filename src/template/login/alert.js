@@ -1,24 +1,16 @@
 import React, { useState } from 'react'
-import { makeStyles } from '@material-ui/core/styles';
-import Alert from '@material-ui/lab/Alert';
+import Alert from '@mui/material/Alert';
+import Stack from '@mui/material/Stack';
 
-const useStyles = makeStyles((theme) => ({
-    root: {
-      width: '100%',
-      '& > * + *': {
-        marginTop: theme.spacing(2),
-      },
-    },
-  }));
-function AlertError() {
-   
-    const classes = useStyles();
-
-    return (
-      <div className={classes.root}>
-        <Alert severity="error">This is an error alert — check it out!</Alert>
-      </div>
-    );
+function AlertError(props) {
+   if(props.showError){
+     return  <Stack sx={{ width: '100%' }} spacing={2}>
+       <Alert severity="error">Por favor verificar e-mail e senha</Alert>
+     </Stack>
+     
+   }else{
+    return false
+   }
 }
 
 export default AlertError

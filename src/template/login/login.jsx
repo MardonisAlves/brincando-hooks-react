@@ -1,10 +1,13 @@
 import React, { useState } from 'react'
 import axios from 'axios';
+import Alert from './alert';
 
 function Login() {
     const [email, setEmail] = useState();
     const [senha, setSenha] = useState();
-    
+    const [showalert , setShowalert]= useState(false)
+    const [message , setMessage] = useState([]);
+    console.log(message)
     const login = () => {
         axios.post(`${process.env.REACT_APP_HOME}/oauth/token`,
             {
@@ -12,7 +15,7 @@ function Login() {
                 "Accept": "application/json",
                 "grant_type": "password",
                 "client_id": "2",
-                "client_secret": "wrSG18NYjPkh86AgCqBsbut8hSYGF4w3AfMACcFO",
+                "client_secret": "yPNBoGS48S0KV1vlkA0R0lW5dUtXPAg5wWgNTJRz",
                 "username": email,
                 "password": senha,
                 "scope": "*"
@@ -20,23 +23,18 @@ function Login() {
         ).then(function (response) {
         console.log(response)
         }).catch(function (error) {
-            if(error.response.data,error){
-                console.log(error.response.data)
-
-            }else{
-
-            }
+            console.log(error.response.data.message)
+            setMessage([error.response.data])
+            console.log(message)
+            setShowalert(true)
+          
         })
 
     }
-
-    const showalert = () => {
-
-    }
-    
     return (
         <div>
-            
+           
+            <Alert showError={showalert} msg={message}/>
             email: <input type="text" onChange={(e) => setEmail(e.target.value)}></input><br />
             senha : <input type="text" onChange={(e) => setSenha(e.target.value)}></input><br />
             <button onClick={login}>Login</button>
