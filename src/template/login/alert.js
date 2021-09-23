@@ -4,8 +4,8 @@ import Stack from '@mui/material/Stack';
 
 function AlertError(props) {
    if(props.showError){
-     return  <Stack sx={{ width: '100%' }} spacing={2}>
-       <Alert severity="error">Por favor verificar e-mail e senha</Alert>
+     return  <Stack sx={{ width: '50%' }} spacing={2}>
+       <Alert severity="error">Dados Invalidos</Alert>
      </Stack>
      
    }else{
