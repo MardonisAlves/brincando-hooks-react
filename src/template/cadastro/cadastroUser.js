@@ -12,8 +12,7 @@ export default function CadastroUser(){
     const [password, setPassword] = useState();
     const [proficao , setProficao] = useState();
     const [prefeituraid , setPrefeituraid] = useState();
-    const [errorsMessage , setErrosmessage] = useState([]);
-
+    const [cress , setCress] = useState();
     const alertError = (errors) => {
    
         for (const key in errors) {
@@ -25,9 +24,12 @@ export default function CadastroUser(){
           });
           }
         }
-        setErrosmessage([])
       }
-    
+    const alertSuccess = () => {
+      toast.error("você está logado", {
+        position: toast.POSITION.TOP_RIGHT
+    });
+    }
     
 
     const cadastro = () => {
@@ -36,7 +38,8 @@ export default function CadastroUser(){
         email :email,
         password:password,
         profissao:proficao,
-        prefeituraId:prefeituraid
+        prefeituraId:prefeituraid,
+        cress:cress
     }
         axios.post(`${process.env.REACT_APP_URL}/api/cadastro/user`,data,
             {
@@ -47,8 +50,6 @@ export default function CadastroUser(){
         ).then(function (response) {
             console.log(response);
         }).catch(function (error) {
-          setErrosmessage([error.response.data.errors])
-          console.log(error.response.data.errors)
           const newArray = [error.response.data.errors]
           if (error) {
               //console.log(errorsMessage)
@@ -91,7 +92,7 @@ export default function CadastroUser(){
         />
         <TextField
           id="outlined-read-only-input"
-          label="Read Only"
+          label="Profissao"
           defaultValue=""
           onChange={(e) => setProficao(e.target.value)}
           
@@ -100,6 +101,12 @@ export default function CadastroUser(){
           id="outlined-number"
           label="Id"
           onChange={(e) => setPrefeituraid(e.target.value)}
+          
+        />
+         <TextField
+          id="outlined-number"
+          label="CRESS"
+          onChange={(e) => setCress(e.target.value)}
           
         />
        <Button onClick={cadastro}>Cadastrar</Button>
