@@ -7,39 +7,37 @@ import { ToastContainer, toast, Zoom, Bounce } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 export default function CadastroUser(){
-    const [nome , setNome] = useState("");
-    const [email, setEmail] = useState("");
-    const [nomeusuario , setNomeusuario] = useState("");
-    const [password, setPassword] = useState("");
-    const [proficao , setProficao] = useState("");
-    const [prefeituraid , setPrefeituraid] = useState("");
+    const [nome , setNome] = useState();
+    const [email, setEmail] = useState();
+    const [password, setPassword] = useState();
+    const [proficao , setProficao] = useState();
+    const [prefeituraid , setPrefeituraid] = useState();
     const [errorsMessage , setErrosmessage] = useState([]);
 
-    const alert = (errors) => {
-      for (const key in errors) {
-        if (Object.hasOwnProperty.call(errors, key)) {
-          const element = errors[key];
-          console.log(element)
-          toast.error(element, {
-            position: toast.POSITION.TOP_CENTER
-        });
+    const alertError = (errors) => {
+   
+        for (const key in errors) {
+          if (Object.hasOwnProperty.call(errors, key)) {
+            const element = errors[key];
+            console.log(element)
+            toast.error(element, {
+              position: toast.POSITION.TOP_RIGHT
+          });
+          }
         }
+        setErrosmessage([])
       }
-    }
-    const data = {
+    
+    
+
+    const cadastro = () => {
+      const data = {
         nome : nome,
         email :email,
-        nomeusuario:nomeusuario,
         password:password,
         profissao:proficao,
         prefeituraId:prefeituraid
     }
-
-    
-
-    console.log(data)
-
-    const cadastro = () => {
         axios.post(`${process.env.REACT_APP_URL}/api/cadastro/user`,data,
             {
                 "Content-Type": "application/json",
@@ -49,15 +47,17 @@ export default function CadastroUser(){
         ).then(function (response) {
             console.log(response);
         }).catch(function (error) {
-          if (error.response.data.errors) {
-              setErrosmessage([error.response.data.errors])
+          setErrosmessage([error.response.data.errors])
+          console.log(error.response.data.errors)
+          const newArray = [error.response.data.errors]
+          if (error) {
               //console.log(errorsMessage)
-              errorsMessage.map((item) => {
+              newArray.map((item) => {
                 for (const key in item) {
                   if (Object.hasOwnProperty.call(item, key)) {
                     const element = item[key];
                    // console.log(element)
-                    alert(element)
+                   alertError(element)
                   }
                 }
               })
@@ -70,17 +70,16 @@ export default function CadastroUser(){
         <Box>
         <div>
             <h1>Novo user</h1>
-            <TextField
-          required
+            <TextField  
           id="outlined-required"
-          label="Required"
-          defaultValue="Nome"
+          label="Nome"
+          defaultValue=""
           onChange={(e) => setNome(e.target.value)}
         />
         <TextField
           id="outlined-disabled"
-          label="Disabled"
-          defaultValue="Hello World"
+          label="email"
+          defaultValue=""
           onChange={(e) => setEmail(e.target.value)}
         />
         <TextField
@@ -93,13 +92,13 @@ export default function CadastroUser(){
         <TextField
           id="outlined-read-only-input"
           label="Read Only"
-          defaultValue="Hello World"
+          defaultValue=""
           onChange={(e) => setProficao(e.target.value)}
           
         />
         <TextField
           id="outlined-number"
-          label="Number"
+          label="Id"
           onChange={(e) => setPrefeituraid(e.target.value)}
           
         />
