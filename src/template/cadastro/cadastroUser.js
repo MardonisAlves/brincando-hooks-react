@@ -13,7 +13,12 @@ export default function CadastroUser(){
     const [password, setPassword] = useState("");
     const [proficao , setProficao] = useState("");
     const [prefeituraid , setPrefeituraid] = useState("");
-
+    
+    const alert = (alert) => {
+        toast.error(alert.email, {
+            position: toast.POSITION.TOP_CENTER
+        });
+    }
     const data = {
         nome : nome,
         email :email,
@@ -23,15 +28,6 @@ export default function CadastroUser(){
         prefeituraId:prefeituraid
     }
 
-    const message = (message) => {
-        console.log(message)   
-       return message.map((item) =>
-       
-        toast.error(item.email, {
-            position: toast.POSITION.TOP_CENTER
-        })
-        )
-    }
     console.log(data)
 
     const cadastro = () => {
@@ -44,13 +40,13 @@ export default function CadastroUser(){
         ).then(function (response) {
             console.log(response);
         }).catch(function (error) {
-            console.log(error.response.data.errors.email)
+            console.log(error.response)
             if (error) {
                 //setMessage([error.response.data.message])
                 // console.log(message)
                 // setShowalert(true)
-                
-               message([error.response.data.errors]) 
+                const errors = error.response
+               alert("oi") 
             }
         })
     }

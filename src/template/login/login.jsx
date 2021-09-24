@@ -12,9 +12,9 @@ function Login() {
     const [senha, setSenha] = useState();
     const [showalert, setShowalert] = useState(false)
     const [message, setMessage] = useState([]);
-    
-  const alert = (alert) => {
-    toast.error(alert, {
+
+  const alert = () => {
+    toast.error("oi", {
         position: toast.POSITION.TOP_CENTER
     });
 }
