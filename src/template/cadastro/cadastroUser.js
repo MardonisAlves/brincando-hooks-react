@@ -13,25 +13,34 @@ export default function CadastroUser(){
     const [password, setPassword] = useState("");
     const [proficao , setProficao] = useState("");
     const [prefeituraid , setPrefeituraid] = useState("");
-    
-    const alert = (alert) => {
-        toast.error(alert.email, {
+    const [errorsMessage , setErrosmessage] = useState([]);
+
+    const alert = (errors) => {
+      for (const key in errors) {
+        if (Object.hasOwnProperty.call(errors, key)) {
+          const element = errors[key];
+          console.log(element)
+          toast.error(element, {
             position: toast.POSITION.TOP_CENTER
         });
+        }
+      }
     }
     const data = {
         nome : nome,
         email :email,
         nomeusuario:nomeusuario,
         password:password,
-        proficao:proficao,
+        profissao:proficao,
         prefeituraId:prefeituraid
     }
+
+    
 
     console.log(data)
 
     const cadastro = () => {
-        axios.post(`${process.env.REACT_APP_HOME}/api/cadastro/user`,data,
+        axios.post(`${process.env.REACT_APP_URL}/api/cadastro/user`,data,
             {
                 "Content-Type": "application/json",
                 "Accept": "application/json",
@@ -40,16 +49,23 @@ export default function CadastroUser(){
         ).then(function (response) {
             console.log(response);
         }).catch(function (error) {
-            console.log(error.response)
-            if (error) {
-                //setMessage([error.response.data.message])
-                // console.log(message)
-                // setShowalert(true)
-                const errors = error.response
-               alert("oi") 
+          if (error.response.data.errors) {
+              setErrosmessage([error.response.data.errors])
+              //console.log(errorsMessage)
+              errorsMessage.map((item) => {
+                for (const key in item) {
+                  if (Object.hasOwnProperty.call(item, key)) {
+                    const element = item[key];
+                   // console.log(element)
+                    alert(element)
+                  }
+                }
+              })
             }
         })
     }
+
+    
     return(
         <Box>
         <div>
@@ -85,7 +101,6 @@ export default function CadastroUser(){
           id="outlined-number"
           label="Number"
           onChange={(e) => setPrefeituraid(e.target.value)}
-          type="number"
           
         />
        <Button onClick={cadastro}>Cadastrar</Button>

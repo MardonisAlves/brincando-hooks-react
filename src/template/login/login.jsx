@@ -37,9 +37,9 @@ function Login() {
                 localStorage.setItem('access_token', response.data.access_token)
             }
         }).catch(function (error) {
-            console.log(error.response.data.error)
+            console.log(error.response)
             if (error) {
-                setMessage([error.response.data.message])
+                setMessage([error.response])
                 // console.log(message)
                 // setShowalert(true)
                 
