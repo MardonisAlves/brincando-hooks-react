@@ -13,8 +13,8 @@ function Login() {
     const [showalert, setShowalert] = useState(false)
     const [message, setMessage] = useState([]);
 
-  const alert = () => {
-    toast.error("oi", {
+  const alert = (msg) => {
+    toast.error(msg, {
         position: toast.POSITION.TOP_CENTER
     });
 }
@@ -34,6 +34,7 @@ function Login() {
             }
         ).then(function (response) {
             if(response.data){
+                console.log(response.data)
                 localStorage.setItem('access_token', response.data.access_token)
             }
         }).catch(function (error) {
