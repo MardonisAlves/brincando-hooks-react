@@ -14,7 +14,11 @@ function Login() {
     const [message, setMessage] = useState([]);
 
   const alert = (msg) => {
+<<<<<<< HEAD
     toast.error(msg[0], {
+=======
+    toast.error(msg, {
+>>>>>>> 3cfadddcb57b84c6970cb8c342ec98268025a994
         position: toast.POSITION.TOP_CENTER
     });
 }
@@ -35,6 +39,7 @@ function Login() {
         ).then(function (response) {
             console.log(response)
             if(response.data){
+                console.log(response.data)
                 localStorage.setItem('access_token', response.data.access_token)
             }
         }).catch(function (error) {
