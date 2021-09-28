@@ -17,7 +17,7 @@ function Menu() {
                         <Link to="/app">Home</Link>
                     </li>
                     <li>
-                    <Link to="/lista/1">Bneficios</Link>
+                    <Link to="/lista">Bneficios</Link>
                     </li>
                     <li>
                     <Link to="/login">login</Link>
@@ -44,7 +44,7 @@ function Menu() {
             </Switch>
         </Router>
 
-        {/* <ListaBeneficio /> */}
+     
         
         </div>
     )

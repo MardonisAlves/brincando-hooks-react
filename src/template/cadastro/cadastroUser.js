@@ -13,6 +13,7 @@ export default function CadastroUser(){
     const [proficao , setProficao] = useState();
     const [prefeituraid , setPrefeituraid] = useState();
     const [cress , setCress] = useState();
+    
     const alertError = (errors) => {
    
         for (const key in errors) {
@@ -26,7 +27,7 @@ export default function CadastroUser(){
         }
       }
     const alertSuccess = () => {
-      toast.error("você está logado", {
+      toast.warn("você está logado", {
         position: toast.POSITION.TOP_RIGHT
     });
     }
@@ -50,8 +51,10 @@ export default function CadastroUser(){
         ).then(function (response) {
             console.log(response);
         }).catch(function (error) {
+         
           const newArray = [error.response.data.errors]
-          if (error) {
+          if (error.response.data.errors) {
+            console.log(error.response.data)
               //console.log(errorsMessage)
               newArray.map((item) => {
                 for (const key in item) {

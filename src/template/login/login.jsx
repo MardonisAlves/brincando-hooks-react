@@ -13,37 +13,38 @@ function Login() {
     const [showalert, setShowalert] = useState(false)
     const [message, setMessage] = useState([]);
 
-  const alert = () => {
-    toast.error("oi", {
+  const alert = (msg) => {
+    toast.error(msg[0], {
         position: toast.POSITION.TOP_CENTER
     });
 }
 
     console.log(message ,email , senha)
     const login = () => {
-        axios.post(`${process.env.REACT_APP_HOME}/oauth/token`,
+        axios.post(`${process.env.REACT_APP_URL}/oauth/token`,
             {
                 "Content-Type": "application/json",
                 "Accept": "application/json",
                 "grant_type": "password",
-                "client_id": "4",
-                "client_secret": "YiMR2AbcPZGFkGBcIcGlhkmfMp0ZDZGrJyAIqHoK",
+                "client_id": "2",
+                "client_secret": "ZoCrNv7jeDuT7oxslQm5jSk24zULCd6EGeTyqkqc",
                 "username": email,
                 "password": senha,
                 "scope": "*"
             }
         ).then(function (response) {
+            console.log(response)
             if(response.data){
                 localStorage.setItem('access_token', response.data.access_token)
             }
         }).catch(function (error) {
-            console.log(error.response)
-            if (error) {
-                setMessage([error.response])
+            const errorLogin = [error.response.data.message]
+            if (errorLogin) {
+                //setMessage([error.response])
                 // console.log(message)
                 // setShowalert(true)
-                
-                alert("Por favor verificar e-mail e senha")
+                console.log(errorLogin)
+                alert(errorLogin)
             }
         })
 
