@@ -1,7 +1,6 @@
-const header = () => {
-    let config = {
+function header() {
+    const config = {
         headers: {
-            
                 "Content-Type": "application/json",
                 "Accept": "application/json",
                 "Authorization" :  `Bearer ${localStorage.getItem('access_token')}`

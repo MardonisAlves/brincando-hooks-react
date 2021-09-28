@@ -6,6 +6,7 @@ import { Button } from '@mui/material';
 import { ToastContainer, toast, Zoom, Bounce } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
+import header from '../../headers/headerToken';
 
 export default function CadastroUser(){
     const [nome , setNome] = useState();
@@ -44,11 +45,11 @@ export default function CadastroUser(){
       "Accept": "application/json"
     }
 
-        axios.post(`${process.env.REACT_APP_URL}/api/cadastro/user`,data,{
-                "Content-Type": "application/json",
-                "Accept": "application/json",
-                "Authorization" :  `Bearer ${localStorage.getItem('access_token')}`
-        }).then(function (response) {
+        axios.post(`${process.env.REACT_APP_URL}/api/cadastro/user`,
+        data,
+        // falta ocnfig na rota da talita
+        header()
+        ).then(function (response) {
             console.log(response);
         }).catch(function (error) {
          
