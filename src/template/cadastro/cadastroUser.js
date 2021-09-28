@@ -11,29 +11,21 @@ export default function CadastroUser(){
     const [nome , setNome] = useState();
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
-    const [proficao , setProficao] = useState();
+    const [profissao , setProfissao] = useState();
     const [prefeituraid , setPrefeituraid] = useState();
     const [cress , setCress] = useState();
-    
+
     const alertError = (errors) => {
-   
         for (const key in errors) {
           if (Object.hasOwnProperty.call(errors, key)) {
             const element = errors[key];
-            console.log(element)
+            console.log(element);
             toast.error(element, {
               position: toast.POSITION.TOP_RIGHT
           });
           }
         }
       }
-    const alertSuccess = () => {
-      toast.warn("você está logado", {
-        position: toast.POSITION.TOP_RIGHT
-
-    });
-  }
-
 
   const cadastro = () => {
     const data = {
@@ -44,19 +36,19 @@ export default function CadastroUser(){
       "prefeituraId": prefeituraid,
       "cress": cress
     }
+  
+
 
     const headers = {
       "Content-Type": "application/json",
       "Accept": "application/json"
     }
 
-        axios.post(`${process.env.REACT_APP_URL}/api/cadastro/user`,data,
-        {
+        axios.post(`${process.env.REACT_APP_URL}/api/cadastro/user`,data,{
                 "Content-Type": "application/json",
                 "Accept": "application/json",
                 "Authorization" :  `Bearer ${localStorage.getItem('access_token')}`
-        }
-        ).then(function (response) {
+        }).then(function (response) {
             console.log(response);
         }).catch(function (error) {
          
@@ -73,15 +65,11 @@ export default function CadastroUser(){
                   }
                 }
               })
-
-
-
-    
-          }
+             }
         })
+      
       }
-    })
-  }
+  
 
 
   return (
@@ -142,4 +130,4 @@ export default function CadastroUser(){
     </Box>
 
   )
-}
+  }

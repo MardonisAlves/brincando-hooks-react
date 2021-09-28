@@ -6,27 +6,20 @@ import 'react-toastify/dist/ReactToastify.css';
 
 
 function Login() {
-
-
     const [email, setEmail] = useState();
     const [senha, setSenha] = useState();
     const [showalert, setShowalert] = useState(false)
     const [message, setMessage] = useState([]);
 
   const alert = (msg) => {
-<<<<<<< HEAD
-    toast.error(msg[0], {
-=======
     toast.error(msg, {
->>>>>>> 3cfadddcb57b84c6970cb8c342ec98268025a994
-        position: toast.POSITION.TOP_CENTER
+        position: toast.POSITION.TOP_RIGHT
     });
-}
-
-    console.log(message ,email , senha)
+    }
+    
     const login = () => {
         axios.post(`${process.env.REACT_APP_URL}/oauth/token`,
-            {
+        {
                 "Content-Type": "application/json",
                 "Accept": "application/json",
                 "grant_type": "password",
@@ -35,7 +28,7 @@ function Login() {
                 "username": email,
                 "password": senha,
                 "scope": "*"
-            }
+        }
         ).then(function (response) {
             console.log(response)
             if(response.data){
@@ -45,11 +38,11 @@ function Login() {
         }).catch(function (error) {
             const errorLogin = [error.response.data.message]
             if (errorLogin) {
-                //setMessage([error.response])
+                // setMessage([error.response])
                 // console.log(message)
                 // setShowalert(true)
                 console.log(errorLogin)
-                alert(errorLogin)
+                alert('E-mail ou senha invalidos')
             }
         })
 
