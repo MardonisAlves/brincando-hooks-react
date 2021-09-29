@@ -6,6 +6,7 @@ import Button from '@mui/material/Button';
 import Login from '../login/login';
 import Date from '../components/date';
 import Cadastro from '../cadastro/cadastroUser';
+import Paginate from '../components/PaginateBeneficio';
 function Menu() {
     return (
         <div>
@@ -28,6 +29,9 @@ function Menu() {
                     <li>
                     <Link to="/cadastro">New User</Link>
                     </li>
+                    <li>
+                    <Link to="/paginate">Paginate Bneficios</Link>
+                    </li>
                 </ul>
             </nav>
 
@@ -38,6 +42,7 @@ function Menu() {
                 <Route path="/login" exact={true} component={Login}/>
                 <Route path="/date" exact={true} component={Date} />
                 <Route path="/cadastro" exact={true} component={Cadastro} />
+                <Route path="/paginate" exact={true} component={Paginate} />
                 
 
 

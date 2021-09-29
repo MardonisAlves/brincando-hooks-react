@@ -13,7 +13,8 @@ function Login() {
 
   const alert = (msg) => {
     toast.error(msg, {
-        position: toast.POSITION.TOP_RIGHT
+        position: toast.POSITION.TOP_RIGHT,
+        theme: "colored"
     });
     }
     
@@ -52,6 +53,7 @@ function Login() {
     return (
         <div>
             <Alert showError={showalert} msg={message} />
+            
             <ToastContainer position="top-right"
                 autoClose={8000}
                 hideProgressBar={false}
