@@ -3,9 +3,10 @@ import TablePagination from '@mui/material/TablePagination';
 import axios from 'axios';
 import header from '../../headers/headerToken';
 export default function TablePaginationDemo() {
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(25);
-  const [data , setData] = useState();
+  const [totalRows , setTotalRows] = useState();
+  const [list , setList] = useState([]);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -19,11 +20,14 @@ export default function TablePaginationDemo() {
 
   // get os beneficiarios
   const getBeneficiarios = () => {
-     return axios.get(`${process.env.REACT_APP_URL}/api/paginate?page=${page}`,
+     return axios.get(`${process.env.REACT_APP_URL}/api/paginate?page=${page} + 1`,
       header()
       ).then(function (response) {
-          setData(response.data)
-          console.log(data);
+
+          console.log(response.data.data)
+          setList(response.data.data)
+          console.log(list);
+
       }).catch(function (error) {
      
        console.log(error)
@@ -34,8 +38,8 @@ useEffect(() => {
     getBeneficiarios();
 },[]);
 
-    const tablesRows = (data) => {
-        {data.map((item) => {
+    return tablesRows = () => {
+        {list.map((item) => {
             <ul key={item.id}>
                 <li>{item.id}</li>
             </ul>
@@ -46,7 +50,8 @@ useEffect(() => {
   return (
     
    <div>
-       {tablesRows(data)}
+       {tablesRows()}
+       {JSON.stringify(list)}
        <TablePagination
          component="div"
          count={100}
