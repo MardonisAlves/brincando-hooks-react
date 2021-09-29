@@ -19,6 +19,12 @@ function Login() {
     });
 }
 
+const alertSuccess = (msg) => {
+    toast.success(msg, {
+      position: toast.POSITION.TOP_CENTER
+    });
+  }
+
     console.log(message ,email , senha)
     const login = () => {
         axios.post(`${process.env.REACT_APP_HOME}/oauth/token`,
@@ -26,14 +32,15 @@ function Login() {
                 "Content-Type": "application/json",
                 "Accept": "application/json",
                 "grant_type": "password",
-                "client_id": "4",
-                "client_secret": "YiMR2AbcPZGFkGBcIcGlhkmfMp0ZDZGrJyAIqHoK",
+                "client_id": "2",
+                "client_secret": "SFKUo6OGztTs6XfzuuQRlmVJLJ3GEXcPWbXRKNew",
                 "username": email,
                 "password": senha,
                 "scope": "*"
             }
         ).then(function (response) {
             if(response.data){
+                alertSuccess('Você esta logado')
                 console.log(response.data)
                 localStorage.setItem('access_token', response.data.access_token)
             }
