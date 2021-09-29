@@ -6,8 +6,6 @@ import 'react-toastify/dist/ReactToastify.css';
 
 
 function Login() {
-
-
     const [email, setEmail] = useState();
     const [senha, setSenha] = useState();
     const [showalert, setShowalert] = useState(false)
@@ -15,8 +13,10 @@ function Login() {
 
   const alert = (msg) => {
     toast.error(msg, {
-        position: toast.POSITION.TOP_CENTER
+        position: toast.POSITION.TOP_RIGHT,
+        theme: "colored"
     });
+
 }
 
 const alertSuccess = (msg) => {
@@ -25,10 +25,12 @@ const alertSuccess = (msg) => {
     });
   }
 
-    console.log(message ,email , senha)
+    
+    
+
     const login = () => {
-        axios.post(`${process.env.REACT_APP_HOME}/oauth/token`,
-            {
+        axios.post(`${process.env.REACT_APP_URL}/oauth/token`,
+        {
                 "Content-Type": "application/json",
                 "Accept": "application/json",
                 "grant_type": "password",
@@ -37,21 +39,22 @@ const alertSuccess = (msg) => {
                 "username": email,
                 "password": senha,
                 "scope": "*"
-            }
+        }
         ).then(function (response) {
+            console.log(response)
             if(response.data){
                 alertSuccess('Você esta logado')
                 console.log(response.data)
                 localStorage.setItem('access_token', response.data.access_token)
             }
         }).catch(function (error) {
-            console.log(error.response)
-            if (error) {
-                setMessage([error.response])
+            const errorLogin = [error.response.data.message]
+            if (errorLogin) {
+                // setMessage([error.response])
                 // console.log(message)
                 // setShowalert(true)
-                
-                alert("Por favor verificar e-mail e senha")
+                console.log(errorLogin)
+                alert('E-mail ou senha invalidos')
             }
         })
 
@@ -61,6 +64,7 @@ const alertSuccess = (msg) => {
     return (
         <div>
             <Alert showError={showalert} msg={message} />
+            
             <ToastContainer position="top-right"
                 autoClose={8000}
                 hideProgressBar={false}

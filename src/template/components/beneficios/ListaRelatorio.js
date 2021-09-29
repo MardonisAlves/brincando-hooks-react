@@ -19,23 +19,19 @@ const style = {
 };
 
 function ListaRelatorio (props){
-    // const [id , setId] = useState(props.match.params);
-    //  console.log(id.id)
-    // const Id = parseInt(id , 10)
-    // const { register, formState: { errors }, handleSubmit } = useForm();
+    const [id , setId] = useState(props.match.params);
+
     const [relatorio, setRelatorio] = useState([])
-    const [idmodal , setIdmodal] = useState();
     const [name , setName] = useState();
     const [idade , setIdade] = useState();
 
-    console.log(name , idade)
     const [open, setOpen] =useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
 
     const onSubmit = data => props.updateAction(data);
     useEffect(() => {
-        axios.get(`${process.env.REACT_APP_URL}/prefeitura`, header()
+        axios.get(`${process.env.REACT_APP_URL}/api/prefeitura`, header()
         ).then(function (response) {
             setRelatorio(response.data.prefeitura)
            console.log(response)
@@ -46,8 +42,7 @@ function ListaRelatorio (props){
     }, []);
 
    const handleChaneId = (id) => {
-    console.log(id)
-    setIdmodal(id)
+     setId(id.id)
     handleOpen()
    }
  
@@ -61,19 +56,15 @@ function ListaRelatorio (props){
 
     return(
         <div>
-            {
-            relatorio.map(
-            item =>
-                <div key={item.id}>
+            
                      <Button
-                      onClick={() => handleChaneId(item.id)}>Modal
+                      onClick={() => handleChaneId(id)}>Modal
                      </Button>
                      
-          </div>
+                
 
-            )
-          }
-        {/* <ComponentFilho quandomudar={receberinformacaofilho}/>  */}
+        
+        // {/* <ComponentFilho quandomudar={receberinformacaofilho}/>  */}
       <Modal
         open={open}
         onClose={handleClose}
@@ -82,7 +73,7 @@ function ListaRelatorio (props){
       >
         <Box sx={style}>
           <Typography id="modal-modal-title" variant="h6" component="h2">
-            Text in a modal  {idmodal}
+            Text in a modal  {id}
           </Typography>
           <Typography id="modal-modal-description" sx={{ mt: 2 }}>
             Duis mollis, est non commodo luctus, nisi erat porttitor ligula.

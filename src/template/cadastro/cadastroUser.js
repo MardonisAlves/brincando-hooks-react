@@ -6,31 +6,27 @@ import { Button } from '@mui/material';
 import { ToastContainer, toast, Zoom, Bounce } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-export default function CadastroUser() {
-  const [nome, setNome] = useState();
-  const [email, setEmail] = useState();
-  const [password, setPassword] = useState();
-  const [profissao, setProfissao] = useState();
-  const [prefeituraid, setPrefeituraid] = useState();
-  const [cress, setCress] = useState();
-  const alertError = (errors) => {
+import header from '../../headers/headerToken';
 
-    for (const key in errors) {
-      if (Object.hasOwnProperty.call(errors, key)) {
-        const element = errors[key];
-        console.log(element)
-        toast.error(element, {
-          position: toast.POSITION.TOP_RIGHT
-        });
+export default function CadastroUser(){
+    const [nome , setNome] = useState();
+    const [email, setEmail] = useState();
+    const [password, setPassword] = useState();
+    const [profissao , setProfissao] = useState();
+    const [prefeituraid , setPrefeituraid] = useState();
+    const [cress , setCress] = useState();
+
+    const alertError = (errors) => {
+        for (const key in errors) {
+          if (Object.hasOwnProperty.call(errors, key)) {
+            const element = errors[key];
+            console.log(element);
+            toast.error(element, {
+              position: toast.POSITION.TOP_RIGHT
+          });
+          }
+        }
       }
-    }
-  }
-  const alertSuccess = (msg) => {
-    toast.success(msg, {
-      position: toast.POSITION.TOP_CENTER
-    });
-  }
-
 
   const cadastro = () => {
     const data = {
@@ -41,37 +37,40 @@ export default function CadastroUser() {
       "prefeituraId": prefeituraid,
       "cress": cress
     }
+  
+
 
     const headers = {
       "Content-Type": "application/json",
       "Accept": "application/json"
     }
 
-
-    console.log(data)
-    axios.post(`${process.env.REACT_APP_HOME}/api/cadastro/user`, data,
-      {
-        headers: headers
-      }
-    ).then(function (response) {
-      console.log(response.data.user);
-      alertSuccess(response.data.user)
-    }).catch(function (error) {
-      const newArray = [error.response.data.errors]
-      if (error) {
-        //console.log(errorsMessage)
-        newArray.map((item) => {
-          for (const key in item) {
-            if (Object.hasOwnProperty.call(item, key)) {
-              const element = item[key];
-              // console.log(element)
-              alertError(element)
-            }
-          }
+        axios.post(`${process.env.REACT_APP_URL}/api/cadastro/user`,
+        data,
+        // falta ocnfig na rota da talita
+        header()
+        ).then(function (response) {
+            console.log(response);
+        }).catch(function (error) {
+         
+          const newArray = [error.response.data.errors]
+          if (error.response.data.errors) {
+            console.log(error.response.data)
+              //console.log(errorsMessage)
+              newArray.map((item) => {
+                for (const key in item) {
+                  if (Object.hasOwnProperty.call(item, key)) {
+                    const element = item[key];
+                   // console.log(element)
+                   alertError(element)
+                  }
+                }
+              })
+             }
         })
+      
       }
-    })
-  }
+  
 
 
   return (
@@ -132,4 +131,4 @@ export default function CadastroUser() {
     </Box>
 
   )
-}
+  }
