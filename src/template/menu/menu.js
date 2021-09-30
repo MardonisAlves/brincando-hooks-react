@@ -7,6 +7,7 @@ import Login from '../login/login';
 import Date from '../components/date';
 import Cadastro from '../cadastro/cadastroUser';
 import Paginate from '../components/PaginateBeneficio';
+import Listpaginate from '../components/Listpaginate';
 function Menu() {
     return (
         <div>
@@ -32,6 +33,9 @@ function Menu() {
                     <li>
                     <Link to="/paginate">Paginate Bneficios</Link>
                     </li>
+                    <li>
+                    <Link to="/listapaginacao">listapaginacao</Link>
+                    </li>
                 </ul>
             </nav>
 
@@ -43,6 +47,7 @@ function Menu() {
                 <Route path="/date" exact={true} component={Date} />
                 <Route path="/cadastro" exact={true} component={Cadastro} />
                 <Route path="/paginate" exact={true} component={Paginate} />
+                <Route path="/listapaginacao" exact={true} component={Listpaginate} />
                 
 
 

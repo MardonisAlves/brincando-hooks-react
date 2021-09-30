@@ -2,9 +2,10 @@ import React , {useEffect, useState}from 'react';
 import TablePagination from '@mui/material/TablePagination';
 import axios from 'axios';
 import header from '../../headers/headerToken';
+
 export default function TablePaginationDemo() {
   const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(25);
+  const [rowsPerPage, setRowsPerPage] = useState(3);
   const [totalRows , setTotalRows] = useState();
   const [list , setList] = useState([]);
 
@@ -20,12 +21,11 @@ export default function TablePaginationDemo() {
 
   // get os beneficiarios
   const getBeneficiarios = () => {
-     return axios.get(`${process.env.REACT_APP_URL}/api/paginate?page=${page} + 1`,
+      axios.get(`${process.env.REACT_APP_HOME}/api/usuarios`,
       header()
       ).then(function (response) {
-
-          console.log(response.data.data)
-          setList(response.data.data)
+          console.log(response)
+          setList([response.data.users])
           console.log(list);
 
       }).catch(function (error) {
@@ -38,20 +38,23 @@ useEffect(() => {
     getBeneficiarios();
 },[]);
 
-    return tablesRows = () => {
-        {list.map((item) => {
-            <ul key={item.id}>
-                <li>{item.id}</li>
-            </ul>
-        })
-    }
-    }
+  
 
   return (
     
    <div>
-       {tablesRows()}
-       {JSON.stringify(list)}
+       
+       {list.map((item) => {
+            for (const key in item) {
+              if (item.hasOwnProperty.call(item, key)) {
+                const element = item[key];
+                <ul>
+                  <li>{element}</li>
+                </ul>
+              }
+            }
+        })
+    }
        <TablePagination
          component="div"
          count={100}

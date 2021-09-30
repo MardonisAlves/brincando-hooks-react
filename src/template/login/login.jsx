@@ -28,8 +28,8 @@ const alertSuccess = (msg) => {
     
     
 
-    const login = () => {
-        axios.post(`${process.env.REACT_APP_URL}/oauth/token`,
+    const login = () =>{
+        axios.post(`${process.env.REACT_APP_HOME}/oauth/token`,
         {
                 "Content-Type": "application/json",
                 "Accept": "application/json",
