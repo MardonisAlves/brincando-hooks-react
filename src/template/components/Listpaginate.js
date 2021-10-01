@@ -16,7 +16,7 @@ export default function Listapaginate(){
  const currentItens = itens.slice(startindex , endIndex)
 
  const getPaginate = () => {
-    axios.get(`${process.env.REACT_APP_HOME}/api/usuarios`,
+    axios.get(`${process.env.REACT_APP_URL}/api/users`,
     header()
     ).then(function (response) {
         console.log(response)

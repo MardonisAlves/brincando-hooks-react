@@ -4,6 +4,7 @@ import Alert from './alert';
 import { ToastContainer, toast, Zoom, Bounce } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
+import headers from '../../headers/headerToken';
 
 function Login() {
     const [email, setEmail] = useState();
@@ -29,22 +30,25 @@ const alertSuccess = (msg) => {
     
 
     const login = () =>{
-        axios.post(`${process.env.REACT_APP_HOME}/oauth/token`,
+        axios.post(`${process.env.REACT_APP_URL}/oauth/token`,
         {
-                "Content-Type": "application/json",
-                "Accept": "application/json",
-                "grant_type": "password",
-                "client_id": "2",
-                "client_secret": "SFKUo6OGztTs6XfzuuQRlmVJLJ3GEXcPWbXRKNew",
-                "username": email,
-                "password": senha,
-                "scope": "*"
-        }
+
+    
+                    "grant_type": "password",
+                    "client_id": "2",
+                    "client_secret": "ZoCrNv7jeDuT7oxslQm5jSk24zULCd6EGeTyqkqc",
+                    "username": email,
+                    "password": senha,
+                    "scope": "*"
+        },
+            headers()
+            
+        
         ).then(function (response) {
             console.log(response)
             if(response.data){
                 alertSuccess('Você esta logado')
-                console.log(response.data)
+                console.log(response)
                 localStorage.setItem('access_token', response.data.access_token)
             }
         }).catch(function (error) {

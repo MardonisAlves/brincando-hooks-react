@@ -21,7 +21,7 @@ export default function TablePaginationDemo() {
 
   // get os beneficiarios
   const getBeneficiarios = () => {
-      axios.get(`${process.env.REACT_APP_HOME}/api/usuarios`,
+      axios.get(`${process.env.REACT_APP_URl}/api/users`,
       header()
       ).then(function (response) {
           console.log(response)

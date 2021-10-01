@@ -3,7 +3,10 @@ import React ,{useState} from 'react';
 function ComponentFilho(props) {
     const [name ,setName] = useState()
     const [idade ,setIdade] = useState()
-    const input = props.quandomudar(name , idade)
+
+    const input = props.quandoClicar(name ,idade)
+    console.log('filho' , name)
+
     return(
     <div>
         <input 
@@ -13,6 +16,8 @@ function ComponentFilho(props) {
         <input 
         type="number" 
         onChange={(e) => setIdade(e.target.value)}></input>
+
+
     </div>
     )
 }
