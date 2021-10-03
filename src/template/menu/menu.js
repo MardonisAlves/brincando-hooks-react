@@ -8,7 +8,11 @@ import Date from '../components/date';
 import Cadastro from '../cadastro/cadastroUser';
 import Paginate from '../components/PaginateBeneficio';
 import Listpaginate from '../components/Listpaginate';
+<<<<<<< HEAD
 import UserPaginate from '../components/Userpaginate';
+=======
+import Pai from '../components/Pai';
+>>>>>>> 17725b82f1a41b1e1a33b7c1c0bfb704fbceb992
 function Menu() {
     return (
         <div>
@@ -38,7 +42,11 @@ function Menu() {
                     <Link to="/listapaginacao">listapaginacao</Link>
                     </li>
                     <li>
+<<<<<<< HEAD
                     <Link to="/userpaginate">userpaginate</Link>
+=======
+                    <Link to="/pai">Pai</Link>
+>>>>>>> 17725b82f1a41b1e1a33b7c1c0bfb704fbceb992
                     </li>
                 </ul>
             </nav>
@@ -52,8 +60,12 @@ function Menu() {
                 <Route path="/cadastro" exact={true} component={Cadastro} />
                 <Route path="/paginate" exact={true} component={Paginate} />
                 <Route path="/listapaginacao" exact={true} component={Listpaginate} />
+<<<<<<< HEAD
                 <Route path="/userpaginate" exact={true} component={UserPaginate} />
                 
+=======
+                <Route path="/pai" exact={true} component={Pai} />
+>>>>>>> 17725b82f1a41b1e1a33b7c1c0bfb704fbceb992
 
 
             </Switch>
