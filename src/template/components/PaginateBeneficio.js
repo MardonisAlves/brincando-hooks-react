@@ -4,37 +4,38 @@ import axios from 'axios';
 import header from '../../headers/headerToken';
 
 export default function TablePaginationDemo() {
-  const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(10);
-  const [totalRows , setTotalRows] = useState();
-  const [list , setList] = useState([]);
+  const [users ,setusers] = useState([]);
+  const [rowsPerPage, setRows] =useState([]);
+  const [page, setPage] = useState(1);
+  const [loading, setLoading] =useState(false);
 
-  const handleChangePage = (event, newPage) => {
-    setPage(newPage);
-    
-  };
 
-  console.log(list)
-
-  const handleChangeRowsPerPage = (event) => {
-    setRowsPerPage(parseInt(event.target.value, 10));
-    setPage(0);
-  };
-
+  
+  
   // get os beneficiarios
-  const getBeneficiarios = () => {
-    axios.get(`${process.env.REACT_APP_HOME}/getuser`,
-      header()
-      ).then(function (response) {
-      // console.log(response)
-         // setList([response.data])
-
-      }).catch(function (error) {
-     
-       console.log(error)
-      })
+  const getBeneficiarios = (page) => {
+    const newpage = page + 1
+    axios.get(`${process.env.REACT_APP_HOME}/api/users?page=${newpage}`,
+    header()
+    ).then(function (response) {
+      setusers(response.data.data)
+      setRows(response.data.per_page)
+      console.log(response.data)
+      
+      
+    }).catch(function (error) {
+      
+      console.log(error)
+    })
   }
-
+  
+  
+    const handleChangePage = (event, newPage) => {
+      setPage(newPage);
+      console.log(page)
+      getBeneficiarios(page)
+      
+    };
 useEffect(() => {
     getBeneficiarios();
 },[]);
@@ -45,24 +46,20 @@ useEffect(() => {
     
    <div>
        
-       {list.map(item => {
-            return 
-            <div key={item.id}>
-              <span>{item.id}</span> 
-               <span>{item.nome}</span> 
-               {JSON.stringfy(list)}
-               </div>
-         }
-         )
-         }
+       <ul className="list-group">
+            {users.map(item  =>{
+                return <li className="list-group-item" key={item.id}>{item.nome}</li>
+            })}
+         </ul>
 
        <TablePagination
          component="div"
-         count={100}
+         count={-1}
          page={page}
          onPageChange={handleChangePage}
          rowsPerPage={rowsPerPage}
-         onRowsPerPageChange={handleChangeRowsPerPage}
+         loading={loading}
+         rowsPerPageOptions={-1}
        />
    </div>
   );

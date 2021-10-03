@@ -25,9 +25,9 @@ export default function UserPaginate(){
     }
     ).then(function (response) { 
         console.log(response.data)  
+        setUsers(response.data.data)
         setPer_page(response.data.per_page)
         setTotal(response.data.total)    
-        setUsers(response.data.data)
 
     }).catch(function (error) {
    
