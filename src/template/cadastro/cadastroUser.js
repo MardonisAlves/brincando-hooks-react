@@ -45,7 +45,7 @@ export default function CadastroUser(){
       "Accept": "application/json"
     }
 
-        axios.post(`${process.env.REACT_APP_URL}/api/cadastro/user`,
+        axios.post(`${process.env.REACT_APP_HEROKU}/api/cadastro/user`,
         data,
         // falta ocnfig na rota da talita
         header()

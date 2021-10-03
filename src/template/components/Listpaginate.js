@@ -16,11 +16,21 @@ export default function Listapaginate(){
  const currentItens = itens.slice(startindex , endIndex)
 
  const getPaginate = () => {
-    axios.get(`${process.env.REACT_APP_HOME}/api/usuarios`,
-    header()
+     const pageNumber = 1
+   
+    axios.get(`${process.env.REACT_APP_HOME}/api/users${pageNumber}`,{
+
+        headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json",
+            "Authorization" :  `Bearer ${localStorage.getItem('access_token')}`
+    
+    }
+    }
     ).then(function (response) {
         console.log(response)
-        setItens(response.data.users)
+        
+        setItens(response.data.data)
         console.log(itens);
 
     }).catch(function (error) {
@@ -39,7 +49,7 @@ export default function Listapaginate(){
          })}
 
          {currentItens.map(item => {
-            return <div><span>{item.id}</span>  <span>{item.nome}</span> </div>
+            return <div key={item.id}><span>{item.id}</span>  <span>{item.nome}</span> </div>
          })}
      </div>
  )

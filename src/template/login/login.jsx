@@ -3,7 +3,7 @@ import axios from 'axios';
 import Alert from './alert';
 import { ToastContainer, toast, Zoom, Bounce } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
+import header from '../../headers/headerToken';
 
 function Login() {
     const [email, setEmail] = useState();
@@ -25,21 +25,19 @@ const alertSuccess = (msg) => {
     });
   }
 
-    
-    
-
     const login = () =>{
         axios.post(`${process.env.REACT_APP_HOME}/oauth/token`,
         {
-                "Content-Type": "application/json",
-                "Accept": "application/json",
+                
                 "grant_type": "password",
-                "client_id": "2",
-                "client_secret": "SFKUo6OGztTs6XfzuuQRlmVJLJ3GEXcPWbXRKNew",
-                "username": email,
+                "client_id": "8",
+                "client_secret": "MUGIfW0KEH7Ivv9q2mep07r0Pl5le30mz4PUzU3y",
+                "username": email,  
                 "password": senha,
                 "scope": "*"
-        }
+               
+               
+        },header()
         ).then(function (response) {
             console.log(response)
             if(response.data){

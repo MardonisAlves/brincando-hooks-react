@@ -5,7 +5,7 @@ import header from '../../headers/headerToken';
 
 export default function TablePaginationDemo() {
   const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(3);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
   const [totalRows , setTotalRows] = useState();
   const [list , setList] = useState([]);
 
@@ -14,6 +14,8 @@ export default function TablePaginationDemo() {
     
   };
 
+  console.log(list)
+
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
@@ -21,12 +23,11 @@ export default function TablePaginationDemo() {
 
   // get os beneficiarios
   const getBeneficiarios = () => {
-      axios.get(`${process.env.REACT_APP_HOME}/api/usuarios`,
+    axios.get(`${process.env.REACT_APP_HOME}/getuser`,
       header()
       ).then(function (response) {
-          console.log(response)
-          setList([response.data.users])
-          console.log(list);
+      // console.log(response)
+         // setList([response.data])
 
       }).catch(function (error) {
      
@@ -44,17 +45,17 @@ useEffect(() => {
     
    <div>
        
-       {list.map((item) => {
-            for (const key in item) {
-              if (item.hasOwnProperty.call(item, key)) {
-                const element = item[key];
-                <ul>
-                  <li>{element}</li>
-                </ul>
-              }
-            }
-        })
-    }
+       {list.map(item => {
+            return 
+            <div key={item.id}>
+              <span>{item.id}</span> 
+               <span>{item.nome}</span> 
+               {JSON.stringfy(list)}
+               </div>
+         }
+         )
+         }
+
        <TablePagination
          component="div"
          count={100}
