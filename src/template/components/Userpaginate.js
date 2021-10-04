@@ -1,7 +1,6 @@
 import React , {useState , useEffect} from 'react';
 import axios from 'axios';
 import header from '../../headers/headerToken';
-// import 'react-bootstrap/dist/react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.css'
 import Pagination from "react-js-pagination";
 

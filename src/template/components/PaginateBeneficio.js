@@ -1,41 +1,59 @@
 import React , {useEffect, useState}from 'react';
 import TablePagination from '@mui/material/TablePagination';
+import TextField from '@mui/material/TextField';
+import Stack from '@mui/material/Stack';
+import Button from '@mui/material/Button';
 import axios from 'axios';
 import header from '../../headers/headerToken';
 
 export default function TablePaginationDemo() {
+  /*Hooks paginate*/
   const [users ,setusers] = useState([]);
-  const [rowsPerPage, setRows] =useState([]);
-  const [page, setPage] = useState(1);
+  const [rowsPerPage, setRowsPerPage] =useState(5);
+  const [page, setPage] = useState(0);
+  const [current_page , setCurrentPage] = useState(0)
   const [total , setTotal] = useState();
   const [loading, setLoading] =useState(false);
+
   const [cpf  , setCpf] = useState()
 
-  
-  
-  // get os beneficiarios
-  const getBeneficiarios = (page) => {
-    const newpage = page + 1
-    axios.get(`${process.env.REACT_APP_HOME}/api/users?page=${newpage}`,
+  // get os users com paginação
+  const newPage = current_page + 1
+  const getBeneficiarios = () => {
+    if(users.length === 0){
+      console.log(users)
+      setCurrentPage(0)
+
+    }else{
+      const newPage = current_page + 1
+     
+    }
+
+    axios.get(`${process.env.REACT_APP_HOME}/api/users?page=${newPage}`,
     header()
     ).then(function (response) {
-      setusers(response.data.data)
-      setRows(response.data.per_page)
+
+      setusers(response.data.data)    
+      setRowsPerPage(response.data.per_page)
+      setCurrentPage(response.data.current_page)
       setTotal(response.data.total);
-      console.log(response.data) 
-    }).catch(function (error) {
+      console.log(response.data.current_page) 
       
+     
+
+        console.log(response.data) 
+
+    }).catch(function (error) {
       console.log(error)
     })
   }
   
-  
+  /*pega nova pagina*/
     const handleChangePage = (event, newPage) => {
       setPage(newPage);
-      console.log(page)
-      getBeneficiarios(page)
-      
     };
+
+    
 
 const pesquisar = () => {
   axios.post(`${process.env.REACT_APP_HOME}/api/pesquisar/cadastro`,cpf,{
@@ -64,10 +82,16 @@ useEffect(() => {
   return (
     
    <div className="container">
+    <Stack spacing={2} direction="row">
+       <TextField id="outlined-basic"
+        label="Pesquisa" variant="outlined" outlined 
+        onChange={(e) => setCpf(e.target.value)} />
 
-       <input type="text" onChange={(e) => setCpf(e.target.value)}/>
-      <input type="button" onClick={pesquisar}/>
+      <Button variant="contained" onClick={pesquisar}>pesquisar</Button>
+     
+    </Stack>
        <ul className="list-group">
+
             {users.map(item  =>{
                 return <li className="list-group-item" key={item.id}>{item.nome}</li>
             })}
@@ -76,12 +100,14 @@ useEffect(() => {
        <TablePagination
          component="div"
          pagination
-         count={14}
+         count={total}
          page={page}
-         onPageChange={handleChangePage}
          rowsPerPage={rowsPerPage}
+        onPageChange={handleChangePage}
          loading={loading}
          rowsPerPageOptions={-1}
+         onClick={ getBeneficiarios}
+        
        />
    </div>
   );
