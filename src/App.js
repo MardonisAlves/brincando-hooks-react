@@ -2,9 +2,13 @@
 import Menu from './template/menu/menu';
 import axios from 'axios';
 function App() {
+/* Criar um pdf precisa baixa um pacote para o nest js
 
+---  https://www.npmjs.com/package/@nestjs/serve-static
+---  mudar a versao do sequelize para "sequelize": "^6.6.2",
+*/
   const relatorio = () =>{
-    axios.get(`${process.env.REACT_APP_HOME}/api/ficha/`+ 8,{ responseType: 'blob'},{
+    axios.get('http://localhost:8080/guias/print/guia',{ responseType: 'blob'},{
         headers: {
                 "Content-Type": "application/json",
                 "Accept": "application/json",
@@ -21,7 +25,7 @@ function App() {
     link.setAttribute('download', 'download.pdf');
     document.body.appendChild(link);
     link.click();
-        
+    
     }).catch(function (error) {
        
     })
